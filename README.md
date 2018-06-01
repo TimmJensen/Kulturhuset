@@ -2,7 +2,7 @@
 ##### af: Timm Jensen & Christian Hansen
 ##### Host: localhost Port: 3000
 
-# Installation & Kørsel
+# Kom igang med projektet
 Step-by-step.
 Download og open mappen i en terminal.
 
