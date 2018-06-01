@@ -16,5 +16,5 @@ GET:
 - / <-- Index
 - /admin <-- Admin Kontrol Panel
 
-Post: 
+POST: 
 - /opdater-titel <-- Opdatere titel i DB
