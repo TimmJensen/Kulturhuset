@@ -4,7 +4,7 @@
 
 # Kom igang med projektet
 Step-by-step.
-Download og open mappen i en terminal.
+Download og åben mappen i en terminal.
 
 1. Installér modules.
 <code> npm install </code>
