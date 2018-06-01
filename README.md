@@ -7,14 +7,11 @@ Step-by-step.
 Download og open mappen i en terminal.
 
 1. Installér modules.
-```
-npm install
-```
+<code> npm install </code>
 
 2. Kør server
-```
-npm run
-```
+<code> npm run </code>
+
 
 3. Åben en browser og gå ind på [Localhost:3000](http://localhost:3000/)
 
