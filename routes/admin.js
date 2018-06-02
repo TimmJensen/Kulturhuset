@@ -49,10 +49,8 @@ module.exports = function (app) {
 			dbo.collection('hoved_menu').find({}).toArray(function (err, menu) {
 				if (err) throw err;
 
-				// TODO: Lav tjek på om DB-Collection overhovede eksistere
 				dbo.collection("general_data").find({}).toArray(function (err, dbTitel) {
 
-					// TODO: Lav tjek på om titel er tom i DB.
 					var gammelTitel = {
 						titel: dbTitel[0].titel
 					};
