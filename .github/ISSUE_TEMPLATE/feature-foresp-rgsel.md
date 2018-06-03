@@ -15,3 +15,6 @@ En klar og præcis beskrivelse af eventuelle alternative løsninger eller funkti
 
 ** Yderligere kontekst **
 Tilføj andre sammenhæng eller skærmbilleder om funktionskortet her.
+
+** Links **
+Tilføj links til forespørgslen, hvis du finder dem nødvendig eller hjælpsom til emnet.

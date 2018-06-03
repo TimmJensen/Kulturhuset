@@ -33,3 +33,6 @@ Tilføj eventuelt skærmbilleder for at hjælpe med at forklare dit problem.
 
 ** Yderligere kontekst **
 Tilføj en anden sammenhæng om problemet her.
+
+** Links **
+Tilføj links til rapporten, hvis du finder dem nødvendig eller hjælpsom til emnet.
