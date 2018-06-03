@@ -3,7 +3,7 @@ const url = "mongodb://localhost:27017/";
 
 module.exports = function (app) {
 
-	/* GET admin siden. */
+	/* GET admin siden - Rendere siden. */
 	app.get('/admin', function (req, res, next) {
 		MongoClient.connect(url, function (err, db) {
 			if (err) throw err;
@@ -31,8 +31,12 @@ module.exports = function (app) {
 		});
 	});
 
+	/* POST admin siden - billede upload*/
+	app.post('/opdater-billede', function (req, res) { 
 
-	/* PUT admin siden */
+	});
+
+	/* POST admin siden - Opdater titel */
 	app.post('/opdater-titel', function (req, res) {
 
 		// Fanger alt i "Request" - Body 
@@ -72,14 +76,14 @@ module.exports = function (app) {
 							menu: menu,
 							statusCode: "Succes! titlen blev opdateret!"
 						};
-						
 
-						res.render('pages/adminpanel/admin', output);
+
+						res.status(200).render('pages/adminpanel/admin', output);
 						db.close();
 					});
-					
+
 				});
-				
+
 			});
 		});
 	});

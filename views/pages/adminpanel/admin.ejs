@@ -21,29 +21,33 @@
 	</header>
 	<main>
 		<div class="container">
-			<h1>
-				<%= titel %>
-			</h1>
-			<p>Velkommen til
-				<%= titel %>
-					- Admin Panel
-			</p>
-			<div class="row">
-				<form action="/opdater-titel" method="POST">
-					<div class="input-group mb-3">
-						<input type="text" id="titelInput" name="titelInput" class="form-control" value="<%= titel %>" aria-label="Skift siden's titel"
-						    aria-describedby="basic-addon2">
-						<div class="input-group-append">
-							<button id="titelKnap" class="btn btn-outline-secondary disabled" type="submit">Gem ændring</button>
+			<div class="col-md-9">
+				<h1>
+					<%= titel %>
+				</h1>
+				<p>Velkommen til
+					<%= titel %>
+						- Admin Panel
+				</p>
+				<div class="row mb-5">
+					<p class="h3 text-muted">Sidetitel</p>
+					<form class="ml-auto" action="/opdater-titel" method="POST">
+						<div class="input-group mb-3">
+							<input type="text" id="titelInput" name="titelInput" class="form-control" value="<%= titel %>" aria-label="Skift siden's titel"
+							    aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button id="titelKnap" class="btn btn-outline-secondary disabled" type="submit">Gem ændring</button>
+							</div>
 						</div>
-					</div>
-				</form>
+					</form>
+				</div>
+				<div class="row">
+					<p class="h3 text-muted">Sidens Logo</p>
+					<% include ../../partials/fileUpload %>
+				</div>
 			</div>
 		</div>
-		<div id="snackbar">
-			<%= statusCode %>
-		</div>
-		<script src="javascripts/snackbar.js"></script>
+		<% include ../../partials/snackbar %>
 	</main>
 	<footer>
 
