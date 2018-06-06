@@ -1,51 +1,80 @@
+* {
+    border-radius: 0 !important;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
 
-/* Snackbar besked */
-
-#snackbar {
+/* Popup notifikation: Start */
+#popup {
     visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
     background-color: #333;
     color: #fff;
     text-align: center;
-    border-radius: 2px;
     padding: 16px;
     position: fixed;
     z-index: 1;
-    left: 50%;
+    left: 2%;
     bottom: 30px;
     font-size: 17px;
 }
 
-#snackbar.show {
+#popup.show {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
 @-webkit-keyframes fadein {
-    from {left: 0; opacity: 0;} 
-    to {left: 50%; opacity: 1;}
+    from {left: 0; opacity: 0;}
+    to {left: 2%; opacity: 1;}
 }
 
 @keyframes fadein {
     from {left: 0; opacity: 0;}
-    to {left: 50%; opacity: 1;}
+    to {left: 2%; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
-    from {left: 50%; opacity: 1;} 
+    from {left: 2%; opacity: 1;}
     to {left: 0; opacity: 0;}
 }
 
 @keyframes fadeout {
-    from {left: 50%; opacity: 1;}
+    from {left: 2%; opacity: 1;}
     to {left: 0; opacity: 0;}
 }
+
+@media (max-width: 576px) {
+    #popup {
+        width: 100%;
+        left: 0;
+        bottom: 0px;
+    }
+    @-webkit-keyframes fadein {
+        from {buttom: 0; opacity: 0;}
+        to {buttom: 0; opacity: 1;}
+    }
+
+    @keyframes fadein {
+        from {buttom: 0; opacity: 0;}
+        to {buttom: 0; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadeout {
+        from {buttom: 0; opacity: 1;}
+        to {buttom: 0; opacity: 0;}
+    }
+
+    @keyframes fadeout {
+        from {buttom: 0; opacity: 1;}
+        to {buttom: 0; opacity: 0;}
+    }
+}
+
+/* Popup notifikation: Slut */
