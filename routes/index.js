@@ -1,25 +1,23 @@
 module.exports = function(app) {
 
-const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/";
+    const findTitel = require('../services/findTitel');
+    const findMenuer = require('../services/findMenuer');
 
-/* Indlæs forsiden */
-app.get('/', function(req, res, next) {
-    MongoClient.connect(url, function(err, db) {
-        if (err) throw err;
-        const dbo = db.db("kulturhuset");
-        dbo.collection("general_data").findOne({}, function(err, titel) {
-            dbo.collection("hoved_menu").find({}).toArray(function(err, menu) {
-                if (err) throw err;
-                res.render('pages/index', {
-                    titel: titel.titel,
-                    menu: menu,
-                });
-                db.close();
+    /* Indlæs forsiden */
+    app.get('/', async (req, res, next) => {
+        try {
+            titel = await findTitel.findTitel();
+            // console.log("finder titlen: ", titel);
+            menu = await findMenuer.findMenuer();
+            // console.log("finder alle menu punkter: ", menu);
+            res.render('pages/index', {
+                titel: titel.titel,
+                menu: menu
             });
-            db.close();
-        });
+        } catch (err) {
+            console.log(err);
+            res.send(err);
+        }
     });
-});
 
 }; // End of: module.exports

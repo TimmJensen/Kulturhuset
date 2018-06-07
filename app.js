@@ -1,9 +1,10 @@
 const createError = require('http-errors');
 const express = require('express');
+const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
+// HUSK !! Udkommenter morgan inden endelig udgivelse
 const logger = require('morgan');
-const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -15,8 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-require("./routes/index") (app);
-require("./routes/admin") (app);
+require("./routes/router") (app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,7 +31,7 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('pages/error');
+    res.render('pages/404');
 });
 
 module.exports = app;

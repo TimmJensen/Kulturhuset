@@ -1,98 +1,82 @@
 module.exports = function(app) {
 
-    const MongoClient = require('mongodb').MongoClient;
-    const url = "mongodb://localhost:27017/";
+    const findTitel = require('../services/findTitel');
+    const findMenuer = require('../services/findMenuer');
 
     /* Indlæser admin siden */
-    app.get('/admin', function(req, res, next) {
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            const dbo = db.db("kulturhuset");
-            dbo.collection("general_data").findOne({}, function(err, titel) {
-                dbo.collection("hoved_menu").find({}).toArray(function(err, menu) {
-                    if (err) throw err;
-                    res.render('pages/adminpanel/admin', {
-                        titel: titel.titel,
-                        menu: menu,
-                        besked: ''
-                    });
-                    db.close();
-                });
-                db.close();
+    app.get('/admin', async (req, res, next) => {
+        try {
+            titel = await findTitel.findTitel();
+            // console.log("finder titlen: ", titel);
+            menu = await findMenuer.findMenuer();
+            // console.log("finder alle menu punkter: ", menu);
+            res.render('pages/adminpanel/admin', {
+                titel: titel.titel,
+                menu: menu,
+                besked: ''
             });
-        });
+        } catch (err) {
+            console.log(err);
+            res.send(err);
+        }
     });
 
     //########################## Side opdeler ##################################
 
+    const opdaterTitel = require('../services/opdaterTitel');
+
     /* opdatere titlen på siden */
-    app.post('/opdater-titel', function(req, res, next) {
-        // console.log(req.body.titel);
+    app.post('/opdater-titel', async (req, res, next) => {
+        try {
 
-        let post = req.body;
-        let titel = post.titelInput;
+            let post = req.body;
+            let titelInput = post.titelInput;
 
-        MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            let dbo = db.db("kulturhuset");
-            // Her henter vi alle dataer fra databasen og ligger ned i en variabel (resultat)
-            dbo.collection("general_data").find({}).toArray(function(err, titelNu) {
-                // console.log(resultat[0].titel);
-                // For at kunne opdatere, skal man bruge den nuværende data fra databasen
-                // og erstatte med den nye data man ønsker i stedet
-                let gammelTitel = {
-                    titel: titelNu[0].titel,
-                    logo: titelNu[0].logo
-                };
-                let nyTitel = { $set: {
-                    titel: titel,
-                    logo: ''
-                } };
-                // Her opdatere vi den gamle data med den nye i databasen
-                dbo.collection("general_data").updateOne(gammelTitel, nyTitel, function(err, resultat) {
-                    dbo.collection("hoved_menu").find({}).toArray(function(err, menu) {
+            // console.log("titelInput: ", titelInput);
 
-                        console.log(resultat);
+            titel = await findTitel.findTitel();
+            menu = await findMenuer.findMenuer();
 
-                        if (err) throw err;
-                        // Vi laver en simpel validering her for at se om brugerens indtastninger er gået korrekt
-                        // igennem til databasen, og udskriver derefter følgende resultat til brugeren på siden
-                        if (res.statusCode == 404 || res.statusCode == 500) {
-                            // TODO: Her beder vi brugeren om at kontakte supporten.
-                            console.log("Du fik en", res.statusCode, "fejl");
-                            let besked = "Der opstod en fejl, kontakt vores support for udbedring af fejlen.";
-                            res.render('pages/adminpanel/admin', {
-                                titel: resultat.titel,
-                                menu: menu,
-                                besked: besked
-                            });
-                        } else if (res.statusCode == 302 || res.statusCode == 304) {
-                            // TODO: Her udskriver vi at der skete en fejl til brugeren.
-                            console.log("Du fik en", res.statusCode, "fejl");
-                            let besked = "Titlen blev ikke gemt, prøv igen!";
-                            res.render('pages/adminpanel/admin', {
-                                titel: resultat.titel,
-                                menu: menu,
-                                besked: besked
-                            });
-                        } else if (res.statusCode == 200) {
-                            console.log("resultatet er: ", resultat);
+            // console.log("udskriver titlen: ", titel);
 
-                            // TODO: Her udskriver vi en besked til brugeren om success.
-                            console.log("Grønt lys:", res.statusCode);
-                            let besked = "Titlen blev gemt og er nu opdateret :)";
-                            res.render('pages/adminpanel/admin', {
-                                titel: titel,
-                                menu: menu,
-                                besked: besked
-                            });
-                        }
-                        db.close();
-                    });
-                    db.close();
+            let gammelTitel = {
+                titel: titel.titel,
+                logo: titel.logo
+            };
+            let nyTitel = { $set: {
+                titel: titelInput,
+                logo: ''
+            } };
+
+            nyTitel2 = await opdaterTitel.opdaterTitel(gammelTitel, nyTitel);
+            // console.log("opdateret titel: ", titelInput);
+
+            if (nyTitel2.modifiedCount == 0) {
+                let besked = "Ser ud til titlen er ens med dit ønske";
+                res.render('pages/adminpanel/admin', {
+                    titel: titel.titel,
+                    menu: menu,
+                    besked: besked
                 });
-            });
-        });
+            } else if (nyTitel2.modifiedCount == 1) {
+                let besked = "Titlen blev gemt og er nu opdateret :)";
+                res.render('pages/adminpanel/admin', {
+                    titel: titelInput,
+                    menu: menu,
+                    besked: besked
+                });
+            } else if (nyTitel2.modifiedCount == undefined || nyTitel2.modifiedCount == null) {
+                let besked = `Der skete en fejl, kontakt supporten med koden: ${res.statusCode}`;
+                res.render('pages/adminpanel/admin', {
+                    titel: titel.titel,
+                    menu: menu,
+                    besked: besked
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            res.send(err);
+        }
     });
 
 }; // End of: module.exports
