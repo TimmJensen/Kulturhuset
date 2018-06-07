@@ -7,7 +7,7 @@ about: Foreslå en ide til dette projekt
 ** Er din funktionsforespørgsel relateret til et problem? Beskriv venligst. **
 En klar og præcis beskrivelse af, hvad problemet er. Eks. Jeg er altid frustreret, når [...]
 
-** Beskriv løsningen du gerne vil **
+** Beskriv løsningen du gerne vil have**
 En klar og præcis beskrivelse af, hvad du vil ske.
 
 ** Beskriv alternativer, du har overvejet **
