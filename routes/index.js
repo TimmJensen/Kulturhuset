@@ -1,15 +1,13 @@
 module.exports = function(app) {
 
-    const findTitel = require('../services/findTitel');
-    const findMenuer = require('../services/findMenuer');
+    const findTitel = require('../services/titel');
+    const findMenuer = require('../services/menu');
 
-    /* Indlæs forsiden */
+    /* Indlæser forsiden */
     app.get('/', async (req, res, next) => {
         try {
-            titel = await findTitel.findTitel();
-            // console.log("finder titlen: ", titel);
-            menu = await findMenuer.findMenuer();
-            // console.log("finder alle menu punkter: ", menu);
+            titel = await findTitel.getOne();
+            menu = await findMenuer.getAll();
             res.render('pages/index', {
                 titel: titel.titel,
                 menu: menu

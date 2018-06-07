@@ -1,15 +1,13 @@
 module.exports = function(app) {
 
-    const findTitel = require('../services/findTitel');
-    const findMenuer = require('../services/findMenuer');
+    const findTitel = require('../services/titel');
+    const findMenuer = require('../services/menu');
 
     /* Indlæser admin siden */
     app.get('/admin', async (req, res, next) => {
         try {
-            titel = await findTitel.findTitel();
-            // console.log("finder titlen: ", titel);
-            menu = await findMenuer.findMenuer();
-            // console.log("finder alle menu punkter: ", menu);
+            titel = await findTitel.getOne();
+            menu = await findMenuer.getAll();
             res.render('pages/adminpanel/admin', {
                 titel: titel.titel,
                 menu: menu,
@@ -21,23 +19,19 @@ module.exports = function(app) {
         }
     });
 
-    //########################## Side opdeler ##################################
+    //########################## Opdeler ##################################
 
-    const opdaterTitel = require('../services/opdaterTitel');
+    const opdaterTitel = require('../services/titel');
 
-    /* opdatere titlen på siden */
+    /* Opdatere titlen på siden */
     app.post('/opdater-titel', async (req, res, next) => {
         try {
 
             let post = req.body;
             let titelInput = post.titelInput;
 
-            // console.log("titelInput: ", titelInput);
-
-            titel = await findTitel.findTitel();
-            menu = await findMenuer.findMenuer();
-
-            // console.log("udskriver titlen: ", titel);
+            titel = await findTitel.getOne();
+            menu = await findMenuer.getAll();
 
             let gammelTitel = {
                 titel: titel.titel,
@@ -48,8 +42,7 @@ module.exports = function(app) {
                 logo: ''
             } };
 
-            nyTitel2 = await opdaterTitel.opdaterTitel(gammelTitel, nyTitel);
-            // console.log("opdateret titel: ", titelInput);
+            nyTitel2 = await opdaterTitel.updateOne(gammelTitel, nyTitel);
 
             if (nyTitel2.modifiedCount == 0) {
                 let besked = "Ser ud til titlen er ens med dit ønske";
@@ -74,9 +67,10 @@ module.exports = function(app) {
                 });
             }
         } catch (err) {
-            console.log(err);
             res.send(err);
         }
     });
+
+    //########################## Opdeler ##################################
 
 }; // End of: module.exports
