@@ -30,6 +30,6 @@ GET:
 -   /admin <-- Admin Kontrol Panel
 
 POST:
--   / <-- opret-profil <-- Opret profil med email og adgangskode
--   / <-- log-ind <-- Log ind med din email og adgangskode
+-   /opret-profil <-- Opret profil med email og adgangskode
+-   /log-ind <-- Log ind med din email og adgangskode
 -   /opdater-titel <-- Opdatere titel i DB
