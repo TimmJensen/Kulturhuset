@@ -2,15 +2,19 @@ module.exports = function(app) {
 
     const findTitel = require('../services/titel');
     const findMenuer = require('../services/menu');
+	const events = require('../services/events');
 
     /* Indlæser admin siden */
     app.get('/admin', async (req, res, next) => {
         try {
             titel = await findTitel.getOne();
             menu = await findMenuer.getAll();
+			kategorier = await events.getAll('event_kategorier');
+
             res.render('pages/adminpanel/admin', {
                 titel: titel.titel,
                 menu: menu,
+                kategorier: kategorier,
                 besked: ''
             });
         } catch (err) {
@@ -32,6 +36,7 @@ module.exports = function(app) {
 
             titel = await findTitel.getOne();
             menu = await findMenuer.getAll();
+            kategorier = await events.getAll('event_kategorier');
 
             let gammelTitel = {
                 titel: titel.titel,
@@ -49,6 +54,7 @@ module.exports = function(app) {
                 res.render('pages/adminpanel/admin', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             } else if (nyTitel2.modifiedCount == 1) {
@@ -56,6 +62,7 @@ module.exports = function(app) {
                 res.render('pages/adminpanel/admin', {
                     titel: titelInput,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             } else if (nyTitel2.modifiedCount == undefined || nyTitel2.modifiedCount == null) {
@@ -63,6 +70,7 @@ module.exports = function(app) {
                 res.render('pages/adminpanel/admin', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             }

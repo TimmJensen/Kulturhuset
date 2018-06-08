@@ -1,14 +1,44 @@
+<!-- Denne navbar er så dynamisk så muligt og skal altid holdes sådan -->
+<!-- Det skal være muligt for brugeren at oprette en ny side eller en dropdown -->
+<!-- uden at skulle ind i nogen filer for at oprette det -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a id="sideTitel" class="navbar-brand" href="/"><%= titel %></a>
+    <!-- Sikkerheds validering så siden ikke crasher hvis titlen ikke eksistere. -->
+    <% if (titel != undefined || titel != "") { %>
+        <a id="sideTitel" class="navbar-brand" href="/"><%= titel %></a>
+    <% } else { %>
+        <a id="sideTitel" class="navbar-brand" href="/">Firmanavn</a>
+    <% } %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <% menu.forEach( function(punkt) { %>
-                <li class="nav-item">
-                    <a class="nav-link" href="/<%= punkt.sti %>" data-placering="<%= punkt.placering %>"><%= punkt.navn %></a>
-                </li>
+                <!-- Her validere vi således at vi kun udskriver en dropdown hvis dropdown_id ikke er lig 0 -->
+                <!-- Det vil sige at vi ikke får en tom dropdown ind på siden. -->
+                <% if (punkt.dropdown_id != 0) { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <%= punkt.navn %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <% kategorier.forEach( function(kat_punkt) { %>
+                                <!-- Her validere vi således at de korrekte punkter kommer under den tilsvarende kategori. -->
+                                <% if (punkt.dropdown_id == kat_punkt.dropdown_id) { %>
+                                    <a class="dropdown-item" href="#"><%= kat_punkt.navn %></a>
+                                <% } %>
+                            <% }) %>
+                        </div>
+                    </li>
+                <% } %>
+                <!-- Her validere vi således at vi kun udskriver 1 af hver med dropdown_id lig 0. -->
+                <!-- Hvis ikke vi gør dette, vil vi få forkert resultat udskrevet på siden. -->
+                <% if (punkt.dropdown_id == 0) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/<%= punkt.sti %>" data-placering="<%= punkt.placering %>"><%= punkt.navn %></a>
+                    </li>
+                <% } %>
             <% }) %>
         </ul>
     </div>

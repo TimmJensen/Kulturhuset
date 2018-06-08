@@ -2,6 +2,7 @@ module.exports = function(app) {
 
     const findTitel = require('../services/titel');
     const findMenuer = require('../services/menu');
+	const events = require('../services/events');
     const nyBruger = require('../services/bruger');
 
     /* Indlæser log ind siden */
@@ -9,9 +10,11 @@ module.exports = function(app) {
         try {
             titel = await findTitel.getOne();
             menu = await findMenuer.getAll();
+            kategorier = await events.getAll('event_kategorier');
             res.render('pages/logind', {
                 titel: titel.titel,
                 menu: menu,
+                kategorier: kategorier,
                 besked: ''
             });
         } catch (err) {
@@ -26,6 +29,7 @@ module.exports = function(app) {
         try {
             titel = await findTitel.getOne();
             menu = await findMenuer.getAll();
+            kategorier = await events.getAll('event_kategorier');
 
             let post = req.body;
             let tjekBruger = { email: post.email, adgangskode: post.adgangskode };
@@ -36,6 +40,7 @@ module.exports = function(app) {
                 res.render('pages/adminpanel/admin', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             } else {
@@ -43,6 +48,7 @@ module.exports = function(app) {
                 res.render('pages/logind', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             }
@@ -58,6 +64,7 @@ module.exports = function(app) {
         try {
             titel = await findTitel.getOne();
             menu = await findMenuer.getAll();
+            kategorier = await events.getAll('event_kategorier');
 
             let post = req.body;
             let tjekEmail = { email: post.email };
@@ -69,6 +76,7 @@ module.exports = function(app) {
                 res.render('pages/logind', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             } else {
@@ -77,6 +85,7 @@ module.exports = function(app) {
                 res.render('pages/logind', {
                     titel: titel.titel,
                     menu: menu,
+                    kategorier: kategorier,
                     besked: besked
                 });
             }

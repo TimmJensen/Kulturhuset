@@ -12,21 +12,21 @@
 	</header>
 
 	<main>
-		<p class="m-5 p-5">Velkommen til
-			<%= titel %>
-		</p>
-		<% arrangementer.forEach( function (arrangement) { %>
-
-			<div class="card" style="width: 18rem;">
-				<img class="card-img-top" src="http://via.placeholder.com/286x180" alt="<%= arrangement.titel %>">
-				<div class="card-body">
-					<h5 class="card-title"><%= arrangement.titel %></h5>
-					<p class="card-text"><%= arrangement.beskrivelse %></p>
-					<a href="/" class="btn btn-primary">Læs mere</a>
-				</div>
+		<div class="container-fluid">
+			<h4 class="text-center text-muted mt-2 mb-2">Viser de 5 nyeste arrangementer</h4>
+			<div class="row justify-content-around">
+				<% for (let i = 0; i < 5; i++) { %>
+					<div class="card mt-2 mb-2" style="width: 18rem;">
+						<img class="card-img-top" src="http://via.placeholder.com/286x180" alt="<%= arrangementer[i].titel %>">
+						<div class="card-body">
+							<h5 class="card-title"><%= arrangementer[i].titel %></h5>
+							<p class="card-text"><%= arrangementer[i].beskrivelse %></p>
+							<a href="/" class="btn btn-primary">Læs mere</a>
+						</div>
+					</div>
+				<% } %>
 			</div>
-
-		<% }) %>
+		</div>
 	</main>
 
 	<footer>

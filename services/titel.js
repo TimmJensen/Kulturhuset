@@ -26,6 +26,8 @@ function getOne() {
     });
 }
 
+//########################## Side opdeler ##################################
+
 function updateOne(gammelTitel, nyTitel) {
     return new Promise((resolve, reject) => {
         MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {

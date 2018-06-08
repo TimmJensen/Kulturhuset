@@ -10,12 +10,14 @@ module.exports = function(app) {
             titel = await findTitel.getOne();
 			menu = await findMenuer.getAll();
 
-			arrangementer = await events.getAll();
-			
+            arrangementer = await events.getAll('event_arrangementer');
+			kategorier = await events.getAll('event_kategorier');
+
             res.render('pages/index', {
                 titel: titel.titel,
 				menu: menu,
-				arrangementer: arrangementer
+				arrangementer: arrangementer,
+                kategorier: kategorier
             });
         } catch (err) {
             console.log(err);

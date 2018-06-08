@@ -3,9 +3,10 @@ const MongoClient = require('mongodb').MongoClient;
 const url = "mongodb://localhost:27017/";
 // Hvad skal vi bruge fra/af databasen
 const DBnavn = 'kulturhuset';
-const CollectionNavn = 'event_arrangementer';
 
-function getAll() {
+function getAll(collection) {
+    const CollectionNavn = collection;
+
     return new Promise((resolve, reject) => {
         MongoClient.connect(url, {useNewUrlParser: true}, (err, db) => {
             if (err) {
@@ -13,7 +14,7 @@ function getAll() {
             } else {
                 let dbo = db.db(DBnavn);
                 // find alle studenter sorter efter navn
-                dbo.collection(CollectionNavn).find().toArray((err, result) => {
+                dbo.collection(CollectionNavn).find().sort({tidspunkt: 1}).toArray((err, result) => {
 
                     db.close();
                     if (err) {
