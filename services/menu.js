@@ -13,7 +13,7 @@ function getAll() {
             } else {
                 let dbo = db.db(DBnavn);
                 // find alle studenter sorter efter navn
-                dbo.collection(CollectionNavn).find().toArray((err, result) => {
+                dbo.collection(CollectionNavn).find().sort({placering: 1}).toArray((err, result) => {
 
                     db.close();
                     if (err) {

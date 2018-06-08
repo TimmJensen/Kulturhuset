@@ -7,7 +7,7 @@
         <ul class="navbar-nav ml-auto">
             <% menu.forEach( function(punkt) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/<%= punkt.sti %>"><%= punkt.navn %></a>
+                    <a class="nav-link" href="/<%= punkt.sti %>" data-placering="<%= punkt.placering %>"><%= punkt.navn %></a>
                 </li>
             <% }) %>
         </ul>
