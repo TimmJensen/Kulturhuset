@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5b1a25c223133306bff279da"},"email":"test@test.dk","adgangskode":"1234","oprettet":{"$date":{"$numberLong":"1528440300000"}}}

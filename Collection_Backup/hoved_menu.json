@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5b0d392c9169773a5ad2f74a"},"navn":"Forside","sti":"","placering":"1"}
+{"_id":{"$oid":"5b0d39779169773a5ad2f74b"},"navn":"Admin Panel","sti":"admin","placering":"2"}
+{"_id":{"$oid":"5b1a263123133306bff279db"},"navn":"Log ind","sti":"logind","placering":"3"}
