@@ -2,13 +2,109 @@
     border-radius: 0 !important;
 }
 
+html {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
 }
 
 a {
     color: #00B7FF;
 }
+
+/* Admin siden: Start */
+#visMenuKnap {
+    position: fixed;
+    left: 2px;
+    top: 50%;
+}
+#gemMenuKnap {
+    display: none;
+    position: fixed;
+    left: 80px;
+    top: 50%;
+}
+#menuPanelet {
+    visibility: hidden;
+    width: 80px;
+    position: fixed;
+    left: 0;
+    top: 35%;
+    background-color: rgb(248, 249, 250);
+    box-shadow: 5px 0px 3px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 0px 3px -4px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 0px 3px -4px rgba(0,0,0,0.75);
+}
+#menuPanelet i {
+    font-size: 15px;
+    text-shadow: 2px 3px rgb(40, 40, 40);
+}
+#menuPanelet ul {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+}
+#menuPanelet li:first-child {
+    background-color: darkorange;
+}
+#menuPanelet li {
+    height: 60px;
+    width: 100%;
+    background-color: rgb(22, 22, 22);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#menuPanelet a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+#menuPanelet a:hover {
+    color: lightgrey;
+    background-color: rgb(33,33,33);
+}
+#menuPanelet.show {
+    visibility: visible;
+    -webkit-animation: slidein 0.3s;
+    animation: slidein 0.3s;
+}
+#menuPanelet.hide {
+    visibility: hidden;
+    -webkit-animation: slideout 0.3s;
+    animation: slideout 0.3s;
+}
+@-webkit-keyframes slidein {
+    from {left: -2%; opacity: 0;}
+    to {left: 0; opacity: 1;}
+}
+
+@keyframes slidein {
+    from {left: -2%; opacity: 0;}
+    to {left: 0; opacity: 1;}
+}
+
+@-webkit-keyframes slideout {
+    from {left: 0; opacity: 1;}
+    to {left: -2%; opacity: 0;}
+}
+
+@keyframes slideout {
+    from {left: 0; opacity: 1;}
+    to {left: -2%; opacity: 0;}
+}
+/* Admin siden: Slut */
 
 /* Popup notifikation: Start */
 #popup {
@@ -81,14 +177,14 @@ a {
 
 /* 404 fejl side */
 .error-template {
-  padding: 40px 15px;
-  text-align: center;
+    padding: 40px 15px;
+    text-align: center;
 }
 .error-actions {
-  margin-top:15px;
-  margin-bottom:15px;
+    margin-top:15px;
+    margin-bottom:15px;
 }
 .error-actions .btn {
-  margin-right:10px;
+    margin-right:10px;
 }
 /* 404 fejl side: Slut */

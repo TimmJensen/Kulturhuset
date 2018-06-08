@@ -9,15 +9,38 @@
         <% include ../../partials/header %>
     </header>
 
-    <main class="fluid-container mt-3">
-        <form class="col-md-4" action="/opdater-titel" method="post">
-            <div class="input-group mb-3">
-                <input id="titelInput" name="titelInput" type="text" class="form-control" value="<%= titel %>">
-                <div class="input-group-append">
-                    <button id="titelKnap" class="btn btn-outline-secondary" type="submit">Skift titel</button>
+    <main>
+        <!-- Widget - menu panelet til venstre -->
+        <i id="visMenuKnap" class="fas fa-caret-right fa-3x"></i>
+        <i id="gemMenuKnap" class="fas fa-times fa-3x"></i>
+        <div id="menuPanelet" class="m-0 p-0">
+            <ul class="m-0 p-0">
+                <li>
+                    <i class="fas fa-font-awesome-logo-full"></i>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-wrench"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-columns"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-code"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- indholdet til højre fra menuen -->
+        <div class="p-2">
+            <form class="col-lg-4" action="/opdater-titel" method="post">
+                <div class="input-group mb-3">
+                    <input id="titelInput" name="titelInput" type="text" class="form-control" value="<%= titel %>">
+                    <div class="input-group-append">
+                        <button id="titelKnap" class="btn btn-outline-secondary" type="submit">Skift titel</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
         <% include ../../partials/popup %>
     </main>
 
@@ -26,5 +49,6 @@
     </footer>
     <% include ../../partials/scripts %>
     <script src="javascripts/onChange.js" charset="utf-8"></script>
+    <script src="javascripts/widget.js" charset="utf-8"></script>
 </body>
 </html>
